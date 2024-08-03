@@ -26,7 +26,11 @@ void SerialAnalyzer::ComputeSampleOffsets()
     if( mSettings->mSerialMode != SerialAnalyzerEnums::Normal )
         num_bits++;
 
+#ifdef IRDA_SERIAL
+    mSampleOffsets.push_back( clock_generator.AdvanceByHalfPeriod( 1.1 ) ); // point to 1/10 of the 1st bit (past the start bit)
+#else
     mSampleOffsets.push_back( clock_generator.AdvanceByHalfPeriod( 1.5 ) ); // point to the center of the 1st bit (past the start bit)
+#endif
     num_bits--;                                                             // we just added the first bit.
 
     for( U32 i = 0; i < num_bits; i++ )
@@ -69,6 +73,10 @@ void SerialAnalyzer::WorkerThread()
 
     // used for HLA byte count, this should not include an extra bit for MP/MDB
     const U32 bytes_per_transfer = ( mSettings->mBitsPerTransfer + 7 ) / 8;
+
+#ifdef IRDA_SERIAL
+    mSettings->mInverted = true;
+#endif
 
     if( mSettings->mInverted == false )
     {
@@ -333,7 +341,11 @@ const char* SerialAnalyzer::GetAnalyzerName() const
 
 const char* GetAnalyzerName()
 {
+#ifdef IRDA_SERIAL
+    return "IrDA Serial";
+#else
     return "Async Serial";
+#endif
 }
 
 Analyzer* CreateAnalyzer()

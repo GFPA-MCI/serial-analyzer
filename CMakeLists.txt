@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.11)
 project(serial_analyzer)
 
 add_definitions( -DLOGIC2 )
+add_definitions( -DIRDA_SERIAL )
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum supported MacOS version" FORCE)
 

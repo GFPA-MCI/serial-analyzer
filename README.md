@@ -112,6 +112,11 @@ Optionally, build from the command line without opening Visual Studio:
 cmake --build .
 ```
 
+:: use the release build when sharing your analyzer! debug builds only work on your machine.
+```
+cmake --build . --config Release
+```
+
 The built analyzer DLLs will be located here:
 
 `build\Analyzers\Debug`

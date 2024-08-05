@@ -74,10 +74,6 @@ void SerialAnalyzer::WorkerThread()
     // used for HLA byte count, this should not include an extra bit for MP/MDB
     const U32 bytes_per_transfer = ( mSettings->mBitsPerTransfer + 7 ) / 8;
 
-#ifdef IRDA_SERIAL
-    mSettings->mInverted = true;
-#endif
-
     if( mSettings->mInverted == false )
     {
         mBitHigh = BIT_HIGH;

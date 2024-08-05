@@ -13,7 +13,11 @@ SerialAnalyzerSettings::SerialAnalyzerSettings()
       mStopBits( 1.0 ),
       mParity( AnalyzerEnums::None ),
       mShiftOrder( AnalyzerEnums::LsbFirst ),
+#ifdef IRDA_SERIAL
+      mInverted( true ),
+#else
       mInverted( false ),
+#endif      
       mUseAutobaud( false ),
       mSerialMode( SerialAnalyzerEnums::Normal )
 {
